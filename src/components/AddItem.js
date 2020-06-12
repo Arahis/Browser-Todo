@@ -16,9 +16,9 @@ const AddItem = () => {
     }
 
     return ( 
-        <form onSubmit={handleSubmit}>
-            <input type="text" name="todo-input" id="todo-input" value={newTodo} onChange={handleChange} required/>
-            <button>Добавить в список</button>
+        <form onSubmit={handleSubmit} className="add-todo_form">
+            <input type="text" name="todo-input" className="todo_input" id="todo-input" value={newTodo} onChange={handleChange} required/>
+            <button className="add-todo_btn">Добавить</button>
         </form>
      );
 }

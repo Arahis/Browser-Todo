@@ -1,22 +1,34 @@
 import React, { useContext } from "react";
 import { TodosContext } from "../contexts/TodosContext";
+import {
+  faTrashAlt
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import AddItem from "./AddItem";
-import TodoHeader from "./TodoHeader"
+import TodoHeader from "./TodoHeader";
 
 const TodoList = () => {
   const { todos, removeTodo } = useContext(TodosContext);
 
   return (
-    <>
-    <TodoHeader />
+    <div className="todo-list_container">
+      <TodoHeader />
       {todos.length ? (
-        <div className="todo_list">
+        <div className="todo-list">
           <ul>
             {todos.map((todo) => {
-              return <li key={todo.id}>
-                  <p>{todo.title}</p>
-                  <span onClick={() => removeTodo(todo.id)}>delete</span>
-                  </li>;
+              return (
+                <li key={todo.id} className="todo-list_item">
+                  <p className="todo-list_item_title">{todo.title}</p>
+
+                  <FontAwesomeIcon
+                    icon={faTrashAlt}
+                    className="icon"
+                    onClick={() => removeTodo(todo.id)}
+                  />
+                </li>
+              );
             })}
           </ul>
         </div>
@@ -25,7 +37,7 @@ const TodoList = () => {
       )}
 
       <AddItem />
-    </>
+    </div>
   );
 };
 
