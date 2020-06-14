@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useLocalStorage } from "../custome_hooks/useLocalStorage";
 import useCurrentTime from "../custome_hooks/useCurrentTime";
 
@@ -8,7 +8,7 @@ const Greeting = () => {
   const [greeting, setGreeting] = useState("");
   const [name, setName] = useLocalStorage("name", "Ваше имя");
 
-  console.log(timeInHours);
+
   // Setting the greeting depending on the time of the day
   useEffect(() => {
     switch (true) {
@@ -32,9 +32,9 @@ const Greeting = () => {
  
 
   // Getting the name of the user
-  let handleChange = (e) => {
+  let handleChange =useCallback( (e) => {
     setName(e.target.value);
-  };
+  }, [setName]);
 
   return (
     <div className="greeting_container">
