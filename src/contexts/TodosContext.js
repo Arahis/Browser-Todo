@@ -7,10 +7,6 @@ export const TodosContext = createContext();
 const TodosContextProvider = (props) => {
   const [todos, setTodos] = useLocalStorage('todos', []);
 
-//   useEffect(() => {
-//       localStorage.setItem('todos', JSON.stringify(todos))
-//   }, [todos])
-
   let addTodo = useCallback(
     (title) => {
       setTodos([...todos, { title, id: uuidv1() }]);

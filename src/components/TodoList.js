@@ -10,7 +10,6 @@ import TodoHeader from "./TodoHeader";
 
 const TodoList = () => {
   const { todos, removeTodo } = useContext(TodosContext);
-
   return (
     <div className="todo-list_container">
       <TodoHeader />
