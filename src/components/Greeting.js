@@ -1,34 +1,35 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocalStorage } from "../custome_hooks/useLocalStorage";
-import { GreetingContext } from "../contexts/GreetingContext";
+import useCurrentTime from "../custome_hooks/useCurrentTime";
 
 const Greeting = () => {
-  const time = useContext(GreetingContext);
-  const timeInHours = time.hours();
-  const [greeting, setGreeting] = useState("ooo");
-  const [name, setName] = useLocalStorage("name", "Your name");
+  const time = useCurrentTime();
+  const timeInHours = time.getHours();
+  const [greeting, setGreeting] = useState("");
+  const [name, setName] = useLocalStorage("name", "Ваше имя");
 
+  console.log(timeInHours);
   // Setting the greeting depending on the time of the day
   useEffect(() => {
     switch (true) {
-      case timeInHours > 0 && timeInHours < 5:
-        setGreeting("Good night");
+      case timeInHours > 0 && timeInHours <= 5:
+        setGreeting("Доброй ночи");
         break;
-      case timeInHours > 5 && timeInHours < 12:
-        setGreeting("Good morning");
+      case timeInHours > 5 && timeInHours <= 12:
+        setGreeting("Доброе утро");
         break;
-      case timeInHours > 12 && timeInHours < 17:
-        setGreeting("Good day");
+      case timeInHours > 12 && timeInHours <= 17:
+        setGreeting("Добрый день");
         break;
-      case timeInHours > 17 && timeInHours < 24:
-        setGreeting("Good evening");
+      case timeInHours > 17 && timeInHours <= 24:
+        setGreeting("Добрый вечер");
         break;
       default:
         setGreeting("");
     }
   }, [timeInHours]);
 
-  console.log(timeInHours);
+ 
 
   // Getting the name of the user
   let handleChange = (e) => {

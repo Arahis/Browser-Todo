@@ -1,10 +1,10 @@
-import React, {useContext} from 'react'
-import { GreetingContext } from "../contexts/GreetingContext";
+import React from 'react'
+import useCurrentTime from '../custome_hooks/useCurrentTime';
 
 const Time = () => {
-    const currentTime = useContext(GreetingContext);
+    const currentTime = useCurrentTime();
     return ( 
-    <div className="time_container">{currentTime.format("HH:mm:ss")}</div>
+    <div className="time_container">{currentTime.toLocaleTimeString()}</div>
      );
 }
  
