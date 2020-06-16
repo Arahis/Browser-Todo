@@ -1,20 +1,18 @@
 import React from "react";
-import TodoList from "./components/TodoList";
+import TodoList from "./components/Todos/TodoList";
 import TodosContextProvider from "./contexts/TodosContext";
 import Dashboard from "./components/Dashboard";
-
-import night from "./img/night.jpg";
+import TodoExpanded from "./components/Todos/TodoExpanded";
 
 function App() {
+  
   return (
     <div className="App">
       <TodosContextProvider>
-        <TodoList />
+        {/* <TodoList /> */}
+        <TodoExpanded />
       </TodosContextProvider>
       <Dashboard />
-      <div className="bg_img_container">
-        <img className="bg_image" src={night} alt="night" />
-      </div>
     </div>
   );
 }

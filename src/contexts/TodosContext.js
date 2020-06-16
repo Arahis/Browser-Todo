@@ -1,4 +1,4 @@
-import React, { createContext, useCallback } from "react";
+import React, { createContext, useState, useCallback } from "react";
 import { v1 as uuidv1 } from "uuid";
 import { useLocalStorage } from "../custome_hooks/useLocalStorage"
 
@@ -6,6 +6,11 @@ export const TodosContext = createContext();
 
 const TodosContextProvider = (props) => {
   const [todos, setTodos] = useLocalStorage('todos', []);
+  const [collapsTodo, setCollapsTodo] = useState(false);
+
+  let toggleTodo = useCallback((toggle) => {
+    setCollapsTodo(toggle) 
+  }, [setCollapsTodo])
 
   let addTodo = useCallback(
     (title) => {
@@ -21,8 +26,9 @@ const TodosContextProvider = (props) => {
       })
     );
   }, [setTodos, todos]);
+  
   return (
-    <TodosContext.Provider value={{ todos, addTodo, removeTodo }}>
+    <TodosContext.Provider value={{ todos, addTodo, removeTodo, toggleTodo, collapsTodo }}>
       {props.children}
     </TodosContext.Provider>
   );

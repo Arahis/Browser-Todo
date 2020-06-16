@@ -1,19 +1,28 @@
-import {useState, useEffect} from 'react'
+import React, { useState, useEffect, useMemo } from "react";
 
 const useCurrentTime = () => {
-    const [currentTime, setCurrentTime] = useState(new Date());
-    useEffect(() => {
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const timeInHours = currentTime.getHours();
 
-        const timeInterval = setInterval(() => {
-            setCurrentTime(new Date());
-        }, 1000);
+  useEffect(() => {
+    const timeInterval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
 
-        return () => {
-            clearInterval(timeInterval);
-          };
+    return () => {
+      clearInterval(timeInterval);
+    };
+  }, [currentTime]);
 
-    }, [currentTime]);
-    return currentTime;
-}
- 
+  const result = useMemo(
+    () => ({
+      currentTime,
+      timeInHours,
+    }),
+    [currentTime, timeInHours]
+  );
+
+  return result;
+};
+
 export default useCurrentTime;

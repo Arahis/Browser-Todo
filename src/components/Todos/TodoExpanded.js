@@ -1,15 +1,14 @@
 import React, { useContext } from "react";
-import { TodosContext } from "../contexts/TodosContext";
-import {
-  faTrashAlt
-} from "@fortawesome/free-solid-svg-icons";
+import { TodosContext } from "../../contexts/TodosContext";
+import { faTrashAlt, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import AddItem from "./AddItem";
 import TodoHeader from "./TodoHeader";
 
-const TodoList = () => {
-  const { todos, removeTodo } = useContext(TodosContext);
+const TodoExpanded = () => {
+  const { todos, removeTodo, toggleTodo } = useContext(TodosContext);
+
   return (
     <div className="todo-list_container">
       <TodoHeader />
@@ -36,8 +35,17 @@ const TodoList = () => {
       )}
 
       <AddItem />
+
+      {/* COLLAPSE TODO SIDEBAR */}
+      <span className="collapseTodo">
+        <FontAwesomeIcon
+          icon={faAngleLeft}
+          className="icon close_todo"
+          onClick={toggleTodo(true)}
+        />
+      </span>
     </div>
   );
 };
 
-export default TodoList;
+export default TodoExpanded;
