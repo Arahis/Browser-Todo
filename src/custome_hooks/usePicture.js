@@ -1,48 +1,69 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-// import axios from "axios";
+
+const unsplashApi = {
+  apiUrl: "https://api.unsplash.com",
+  clientId: "m-xBGVAIJdsP6KnActMZ-gpgtrDGAGhL1O4WWxHens4"
+};
+
+const cache = {};
+
+const request = url => {
+  if (cache[url]) {
+    return cache[url];
+  }
+
+  return (cache[url] = new Promise(async (resolve, reject) => {
+    try {
+      const resp = await fetch(url);
+      const json = await resp.json();
+
+      resolve(json);
+      delete cache[url];
+    } catch (ex) {
+      reject(ex);
+    }
+  }));
+};
 
 const usePicture = query => {
   const [img, setImg] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [authorProfile, setAuthorProfile] = useState("");
 
-
-  console.log("QUERY @@@@", query)
-  const unsplashApi = {
-    apiUrl: "https://api.unsplash.com",
-    clientId: "m-xBGVAIJdsP6KnActMZ-gpgtrDGAGhL1O4WWxHens4",
-  };
-
-  let url = `https://api.unsplash.com/photos/random?query=${query}&orientation=landscape&client_id=${unsplashApi.clientId}`;
-
-
-  const fetchImages = async () => {
-    try {
-      const imageData = await fetch(url);
-      const data = await imageData.json();
-      setImg(data.urls.regular);
-      setAuthorName(data.user.name);
-      setAuthorProfile(data.user.links.html);
-    } catch (e) {
-      if (e) {
-        console.log(e.message);
-      }
-    }
-  };
+  console.log("QUERY @@@@", query);
 
   useEffect(() => {
-    fetchImages();
-  }, []);
+    const fetchImages = async () => {
+      const url = `${
+        unsplashApi.apiUrl
+      }/photos/random?query=${query}&orientation=landscape&client_id=${
+        unsplashApi.clientId
+      }`;
+      try {
+        const data = await request(url);
+        setImg(data.urls.regular);
+        setAuthorName(data.user.name);
+        setAuthorProfile(data.user.links.html);
+      } catch (e) {
+        if (e) {
+          console.log(e.message);
+        }
+      }
+    };
+
+    if (query) {
+      fetchImages();
+    }
+  }, [query]);
 
   const result = useMemo(
     () => ({
       img,
       authorName,
-      authorProfile,
+      authorProfile
     }),
     [img, authorName, authorProfile]
   );
-
 
   return result;
 };

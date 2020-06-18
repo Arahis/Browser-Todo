@@ -42,7 +42,7 @@ const DashboardContextProvider = (props) => {
 
   useEffect(() => {
     handleTimeInHours()
-  }, []);
+  }, [handleTimeInHours]);
 
   const result = useMemo(
     () => ({
