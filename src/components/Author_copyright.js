@@ -6,6 +6,8 @@ const AuthorCopyright = () => {
   const { color } = useContext(DashboardContext);
   const { authorName, authorProfile } = usePicture();
 
+  console.log('auth', authorName, authorProfile )
+
   return (
     <div className="copyright_container">
       <a href={authorProfile} target="_blank" rel="noopener noreferrer" className="author-link" style={{color: color, borderRight: `2px solid ${color}`}}>

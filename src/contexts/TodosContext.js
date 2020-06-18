@@ -1,16 +1,37 @@
-import React, { createContext, useState, useCallback } from "react";
+import React, { createContext, useState, useCallback, useMemo} from "react";
 import { v1 as uuidv1 } from "uuid";
-import { useLocalStorage } from "../custome_hooks/useLocalStorage"
+import { useLocalStorage } from "../custome_hooks/useLocalStorage";
+import { useWindowSize } from "../custome_hooks/useWindowSize";
 
 export const TodosContext = createContext();
 
 const TodosContextProvider = (props) => {
-  const [todos, setTodos] = useLocalStorage('todos', []);
-  const [collapsTodo, setCollapsTodo] = useState(false);
+  const size = useWindowSize();
+  const [todos, setTodos] = useLocalStorage("todos", []);
+  const [collapsOnClick, setCollapsOnClick] = useState(false);
+  const [toggleTodo, setToggleTodo] = useState(false);
 
-  let toggleTodo = useCallback((toggle) => {
-    setCollapsTodo(toggle) 
-  }, [setCollapsTodo])
+  let handleCollapse = useCallback(
+    (state) => {
+      setCollapsOnClick(state);
+      setToggleTodo(state)
+    },
+    [setCollapsOnClick, setToggleTodo]
+  );
+
+  // useEffect(() => {
+  //   if (size.width < 1000) {
+  //     setToggleTodo(true);
+  //   } else if (size.width < 1000 && collapsOnClick === true) {
+  //     setToggleTodo(true);
+  //   } else if (size.width > 1000 && collapsOnClick === true) {
+  //     setToggleTodo(true);
+  //   } else if (size.width < 1000 && collapsOnClick === false) {
+  //     setToggleTodo(false);
+  //   } else setToggleTodo(false);
+  // }, [size, collapsOnClick]);
+
+
 
   let addTodo = useCallback(
     (title) => {
@@ -19,16 +40,25 @@ const TodosContextProvider = (props) => {
     [setTodos, todos]
   );
 
-  let removeTodo = useCallback((id) => {
-    setTodos(
-      todos.filter((todo) => {
-        return todo.id !== id
-      })
-    );
-  }, [setTodos, todos]);
-  
+  let removeTodo = useCallback(
+    (id) => {
+      setTodos(
+        todos.filter((todo) => {
+          return todo.id !== id;
+        })
+      );
+    },
+    [setTodos, todos]
+  );
+
+  const result = useMemo(() => ({
+    todos, addTodo, removeTodo, toggleTodo, handleCollapse
+  }), [todos, addTodo, removeTodo, toggleTodo, handleCollapse])
+
   return (
-    <TodosContext.Provider value={{ todos, addTodo, removeTodo, toggleTodo, collapsTodo }}>
+    <TodosContext.Provider
+      value={result}
+    >
       {props.children}
     </TodosContext.Provider>
   );

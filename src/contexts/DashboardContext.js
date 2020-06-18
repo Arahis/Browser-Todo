@@ -1,5 +1,6 @@
-import React, { createContext, useState, useEffect, useMemo } from "react";
+import React, { createContext, useState, useEffect, useMemo, useCallback } from "react";
 import useCurrentTime from "../custome_hooks/useCurrentTime";
+import { faCommentsDollar } from "@fortawesome/free-solid-svg-icons";
 
 export const DashboardContext = createContext();
 
@@ -10,7 +11,7 @@ const DashboardContextProvider = (props) => {
   const [query, setQuery] = useState("");
   const [greeting, setGreeting] = useState("");
 
-  useEffect(() => {
+  let handleTimeInHours = useCallback(() => {
     switch (true) {
       case timeInHours >= 0 && timeInHours <= 5:
         setGreeting("Доброй ночи,");
@@ -37,16 +38,22 @@ const DashboardContextProvider = (props) => {
         setColor("white");
         setQuery("evening");
     }
-  }, [timeInHours, setGreeting, setColor, setQuery]);
+  }, [timeInHours])
+
+  useEffect(() => {
+    handleTimeInHours()
+  }, []);
 
   const result = useMemo(
     () => ({
       color,
       greeting,
-      query,
+      query
     }),
     [color, greeting, query]
   );
+
+  console.log("QUERY DashContext", result)
 
   return (
     <DashboardContext.Provider value={result}>

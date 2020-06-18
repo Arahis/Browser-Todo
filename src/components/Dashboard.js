@@ -12,7 +12,7 @@ const Dashboard = () => {
         <div className="dashboard_center">
           <Greeting />
           <Time />
-          {/* <Background /> */}
+          <Background />
           <AuthorCopyright />
         </div>
       </DashboardContextProvider>

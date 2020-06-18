@@ -4,6 +4,8 @@ import { DashboardContext } from "../contexts/DashboardContext";
 
 const Bg = () => {
   const { query } = useContext(DashboardContext);
+  console.log("BG", query);
+
   const { img } = usePicture(query);
   return (
     <div className="bg_img_container">

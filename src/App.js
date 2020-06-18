@@ -9,8 +9,7 @@ function App() {
   return (
     <div className="App">
       <TodosContextProvider>
-        {/* <TodoList /> */}
-        <TodoExpanded />
+        <TodoList />
       </TodosContextProvider>
       <Dashboard />
     </div>

@@ -7,7 +7,7 @@ import AddItem from "./AddItem";
 import TodoHeader from "./TodoHeader";
 
 const TodoExpanded = () => {
-  const { todos, removeTodo, toggleTodo } = useContext(TodosContext);
+  const { todos, removeTodo, handleCollapse } = useContext(TodosContext);
 
   return (
     <div className="todo-list_container">
@@ -41,7 +41,7 @@ const TodoExpanded = () => {
         <FontAwesomeIcon
           icon={faAngleLeft}
           className="icon close_todo"
-          onClick={toggleTodo(true)}
+          onClick={() => handleCollapse(true)}
         />
       </span>
     </div>
