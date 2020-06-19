@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect, useMemo, useCallback } from "react";
 import useCurrentTime from "../custome_hooks/useCurrentTime";
-import { faCommentsDollar } from "@fortawesome/free-solid-svg-icons";
 
 export const DashboardContext = createContext();
 
@@ -52,8 +51,6 @@ const DashboardContextProvider = (props) => {
     }),
     [color, greeting, query]
   );
-
-  console.log("QUERY DashContext", result)
 
   return (
     <DashboardContext.Provider value={result}>

@@ -1,4 +1,6 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useContext } from "react";
+import { DashboardContext } from "../contexts/DashboardContext";
+
 
 const unsplashApi = {
   apiUrl: "https://api.unsplash.com",
@@ -25,12 +27,12 @@ const request = url => {
   }));
 };
 
-const usePicture = query => {
+const usePicture = () => {
   const [img, setImg] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [authorProfile, setAuthorProfile] = useState("");
 
-  console.log("QUERY @@@@", query);
+  const { query } = useContext(DashboardContext);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -64,6 +66,8 @@ const usePicture = query => {
     }),
     [img, authorName, authorProfile]
   );
+
+  console.log("!!!!!!!!!!!!", img, authorName, authorProfile)
 
   return result;
 };

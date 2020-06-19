@@ -1,4 +1,4 @@
-import React, { createContext, useState, useCallback, useMemo} from "react";
+import React, { createContext, useState, useCallback, useMemo, useEffect} from "react";
 import { v1 as uuidv1 } from "uuid";
 import { useLocalStorage } from "../custome_hooks/useLocalStorage";
 import { useWindowSize } from "../custome_hooks/useWindowSize";
@@ -19,17 +19,11 @@ const TodosContextProvider = (props) => {
     [setCollapsOnClick, setToggleTodo]
   );
 
-  // useEffect(() => {
-  //   if (size.width < 1000) {
-  //     setToggleTodo(true);
-  //   } else if (size.width < 1000 && collapsOnClick === true) {
-  //     setToggleTodo(true);
-  //   } else if (size.width > 1000 && collapsOnClick === true) {
-  //     setToggleTodo(true);
-  //   } else if (size.width < 1000 && collapsOnClick === false) {
-  //     setToggleTodo(false);
-  //   } else setToggleTodo(false);
-  // }, [size, collapsOnClick]);
+  useEffect(() => {
+    if (!collapsOnClick) {
+      setToggleTodo(size.width < 1000);
+    }
+  }, [size, collapsOnClick]);
 
 
 

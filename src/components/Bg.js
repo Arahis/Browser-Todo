@@ -1,15 +1,19 @@
-import React, { useContext } from "react";
+import React  from "react";
 import usePicture from "../custome_hooks/usePicture";
-import { DashboardContext } from "../contexts/DashboardContext";
 
 const Bg = () => {
-  const { query } = useContext(DashboardContext);
-  console.log("BG", query);
-
-  const { img } = usePicture(query);
+  const { img } = usePicture();
   return (
-    <div className="bg_img_container">
-      <img className="bg_image" src={img} alt="bg_img" />
+    <div>
+      {img ? (
+        <div className="bg_img_container">
+          <img className="bg_image" src={img} alt="bg_img" />
+        </div>
+      ) : (
+        <div className="loader_container">
+          <div className="loader"></div>
+        </div>
+      )}
     </div>
   );
 };

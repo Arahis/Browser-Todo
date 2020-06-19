@@ -11,7 +11,9 @@ li {
 a {
   text-decoration: none;
 }
-textarea:focus, input:focus, button:focus{
+textarea:focus,
+input:focus,
+button:focus {
   outline: none;
 }
 body {
@@ -19,10 +21,9 @@ body {
   font-family: "Merriweather", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #666;
+  background: rgb(154, 206, 221);
   position: relative;
 }
-
 
 .App {
   display: flex;
@@ -30,10 +31,10 @@ body {
 }
 
 .todo-list_container {
-  background-color:rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.9);
   height: 100vh;
   padding: 30px 50px;
-  box-shadow: 0 0 40px rgba(0,0,0,0.5);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
   text-align: center;
   overflow-y: auto;
   position: relative;
@@ -42,8 +43,8 @@ body {
 .todo-list_container_collapsed {
   height: 100%;
   padding: 15px 10px;
-  background-color:rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 40px rgba(0,0,0,0.5);
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
 .todo-list_item {
@@ -71,7 +72,6 @@ body {
   border: none;
   border-radius: 5px;
   font-size: 16px;
-  /* box-shadow: 0 0 30px rgba(0,0,0,0.2); */
 }
 
 .add-todo_btn {
@@ -111,12 +111,12 @@ body {
   margin-bottom: 10px;
 }
 
-.greeting_container h4{
+.greeting_container h4 {
   margin: 0;
-  margin-right: 5px;;
+  margin-right: 5px;
 }
 
-.greeting_container input{
+.greeting_container input {
   width: auto;
   border: none;
   font-weight: 600;
@@ -125,7 +125,6 @@ body {
   font-family: "Merriweather", serif;
   text-align: center;
 }
-
 
 .time_container {
   font-family: "Jost";
@@ -158,12 +157,13 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+      
 }
 
 /* COPYRIGHT */
 .copyright_container {
   display: flex;
-  font-size: 14px; 
+  font-size: 14px;
   font-family: "Jost";
   margin-top: auto;
   margin-bottom: 20px;
@@ -177,7 +177,6 @@ body {
   padding-left: 10px;
 }
 
-
 /* MEDIA QUERY */
 
 @media only screen and (max-width: 700px) {
@@ -188,5 +187,22 @@ body {
     position: absolute;
     height: auto;
     width: 100%;
+  }
+}
+
+/* LOADER */
+
+.loader {
+  width: 2rem;
+  height: 2rem;
+  border: 4px solid rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  border-top-color: rgba(0, 0, 0, 1);
+  animation: 0.5s spin infinite ease-in-out;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }

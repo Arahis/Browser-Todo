@@ -6,8 +6,6 @@ import {DashboardContext} from "../contexts/DashboardContext";
 const Greeting = () => {
 
   const {color, greeting} = useContext(DashboardContext);
-
-  console.log("Grreting", color, greeting);
   const [name, setName] = useLocalStorage("name", "Ваше имя");
 
 
