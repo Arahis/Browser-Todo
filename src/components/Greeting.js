@@ -6,7 +6,7 @@ import {DashboardContext} from "../contexts/DashboardContext";
 const Greeting = () => {
 
   const {color, greeting} = useContext(DashboardContext);
-  const [name, setName] = useLocalStorage("name", "Ваше имя");
+  const [name, setName] = useLocalStorage("name", "Введите Ваше имя");
 
 
   // Getting the name of the user
