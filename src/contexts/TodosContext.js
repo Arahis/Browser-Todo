@@ -1,4 +1,4 @@
-import React, { createContext, useState, useCallback, useMemo, useEffect} from "react";
+import React, { createContext, useState, useCallback, useMemo, useEffect } from "react";
 import { v1 as uuidv1 } from "uuid";
 import { useLocalStorage } from "../custome_hooks/useLocalStorage";
 import { useWindowSize } from "../custome_hooks/useWindowSize";
@@ -14,18 +14,20 @@ const TodosContextProvider = (props) => {
   let handleCollapse = useCallback(
     (state) => {
       setCollapsOnClick(state);
-      setToggleTodo(state)
+      setToggleTodo(state);
     },
     [setCollapsOnClick, setToggleTodo]
   );
 
   useEffect(() => {
     if (!collapsOnClick) {
-      setToggleTodo(size.width < 1000);
+      if (size.width < 1000) {
+        setToggleTodo(true);
+      } else {
+        setToggleTodo(false);
+      }
     }
   }, [size, collapsOnClick]);
-
-
 
   let addTodo = useCallback(
     (title) => {
@@ -45,14 +47,19 @@ const TodosContextProvider = (props) => {
     [setTodos, todos]
   );
 
-  const result = useMemo(() => ({
-    todos, addTodo, removeTodo, toggleTodo, handleCollapse
-  }), [todos, addTodo, removeTodo, toggleTodo, handleCollapse])
+  const result = useMemo(
+    () => ({
+      todos,
+      addTodo,
+      removeTodo,
+      toggleTodo,
+      handleCollapse,
+    }),
+    [todos, addTodo, removeTodo, toggleTodo, handleCollapse]
+  );
 
   return (
-    <TodosContext.Provider
-      value={result}
-    >
+    <TodosContext.Provider value={result}>
       {props.children}
     </TodosContext.Provider>
   );
